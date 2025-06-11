@@ -1,0 +1,29 @@
+<div class="container my-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div *ngFor="let acc of accounts" class="mb-4">
+
+        <!-- Account Summary 클릭 시 토글 -->
+        <div  style="cursor: pointer;">
+          <app-account-summary
+            [account]="acc"
+            (balanceUpdated)="updateBalance($event.id, $event.newBalance)"
+            (requestTransferForm)="toggleForm(acc.accountId)">
+          </app-account-summary>
+        </div>
+
+        <!-- 선택된 계좌만 Form 보이게 -->
+        <app-transaction-form
+          *ngIf="selectedAccountId === acc.accountId"
+          [fromAccountId]="acc.accountId"
+          (transferCompleted)="refreshAccounts()">
+        </app-transaction-form>
+
+      </div>
+    </div>
+    <div *ngIf="latestNotification" class="alert alert-info shadow-sm">
+      <strong>{{ latestNotification.message }}</strong>
+      <span class="ms-2 text-muted">{{ latestNotification.timestamp }}</span>
+    </div>
+  </div>
+</div>

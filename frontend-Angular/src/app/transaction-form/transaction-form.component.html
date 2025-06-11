@@ -1,0 +1,13 @@
+<form (ngSubmit)="onSubmit()" #txForm="ngForm">
+  <div class="mb-3">
+    <label class="form-label">Recipient Account ID</label>
+    <input type="text" class="form-control" [(ngModel)]="model.toAccountId" name="toAccount" required>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Amount</label>
+    <input type="number" class="form-control" [(ngModel)]="model.amount" name="amount" required min="1">
+  </div>
+
+  <button type="submit" class="btn btn-primary" [disabled]="txForm.invalid">Send</button>
+</form>

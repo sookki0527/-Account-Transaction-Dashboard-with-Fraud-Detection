@@ -1,0 +1,39 @@
+<div class="container my-5 p-4 bg-light rounded shadow-sm">
+  <h2 class="mb-4 text-center text-primary">Welcome, {{ userName }}!</h2>
+
+  <div class="row text-center mb-4">
+    <div class="col-md-4 mb-3 mb-md-0">
+      <div class="card border-primary">
+        <div class="card-body">
+          <h6 class="card-title text-muted">Total Balance</h6>
+          <h4 class="card-text text-success">{{ total$ | async | currency }}</h4>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-3 mb-md-0">
+      <div class="card border-secondary">
+        <div class="card-body">
+          <h6 class="card-title text-muted">Accounts</h6>
+          <h4 class="card-text">{{ accounts.length }}</h4>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card border-info">
+        <div class="card-body">
+          <h6 class="card-title text-muted">Last Transaction</h6>
+          <h5 class="card-text">{{ lastTransaction }}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="latestNotification" class="alert alert-info shadow-sm">
+    <strong>{{ latestNotification.message }}</strong>
+    <span class="ms-2 text-muted">{{ latestNotification.timestamp }}</span>
+  </div>
+
+  <div class="d-flex justify-content-center gap-3">
+    <button class="btn btn-outline-primary px-4" (click)="viewAccounts()">💼 View Accounts</button>
+    <button class="btn btn-outline-success px-4" (click)="makeTransfer()">💸 Transfer history</button>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+<div class="card mb-4 shadow-sm">
+  <div class="card-body">
+    <h5 class="card-title text-primary">
+      🏦 {{ account?.accountType }} ****{{ account?.accountNumber?.slice(-4) }}
+    </h5>
+
+    <p class="card-text text-muted mb-1">
+      <strong>Account ID:</strong> {{ account?.accountId }}
+    </p>
+
+    <p class="card-text text-success fs-5 fw-semibold">
+      <strong>Balance:</strong> {{ account?.balance | currency }}
+    </p>
+
+    <div class="d-flex gap-2 mt-2">
+      <button class="btn btn-outline-success btn-sm">
+        +$100
+      </button>
+
+      <button class="btn btn-outline-primary btn-sm ms-auto" (click)="onTransferClick()">
+        💸 Transfer
+      </button>
+    </div>
+    <div class="alert alert-info mt-3 py-2 px-3" *ngIf="account?.recentTransaction">
+      <strong>Recent:</strong> {{ account?.recentTransaction }}
+    </div>
+  </div>
+</div>
