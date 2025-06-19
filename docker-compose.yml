@@ -1,4 +1,4 @@
-version: '3'
+
 services:
   mysql:
     image: mysql:8.0
@@ -11,6 +11,13 @@ services:
       - "3306:3306"
     networks:
       - backend
+    volumes:
+      - ./mysql-init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-ppasswordForMySQL8.1" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
   account-service:
     container_name: account-service
     image: account-service:latest
@@ -38,6 +45,7 @@ services:
       - "8082:8082"
     environment:
       SPRING_PROFILES_ACTIVE: development
+      MYSQL_DATABASE: transaction_db
     depends_on:
       - kafka
       - mysql
@@ -60,6 +68,21 @@ services:
     networks:
       - backend
 
+  fraud-detection-service:
+    container_name: fraud-detection-service
+    image: fraud-detection-service:latest
+    build:
+      context: ./fraud-detection-service
+      dockerfile: Dockerfile
+    ports:
+      - "8085:8085"
+    environment:
+      SPRING_PROFILES_ACTIVE: development
+    depends_on:
+      - kafka
+      - mysql
+    networks:
+      - backend
   zookeeper:
     image: confluentinc/cp-zookeeper:7.5.0
     ports:
@@ -68,7 +91,12 @@ services:
       ZOOKEEPER_CLIENT_PORT: 2181
     networks:
       - backend
-
+  flask:
+    build: .
+    env_file:
+      - .env
+    ports:
+      - "5000:5000"
   kafka:
     container_name: kafka
     image: confluentinc/cp-kafka:7.5.0

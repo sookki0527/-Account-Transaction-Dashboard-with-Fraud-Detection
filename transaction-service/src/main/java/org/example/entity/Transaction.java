@@ -8,6 +8,10 @@ import lombok.NoArgsConstructor;
 import org.example.dto.Type;
 import org.springframework.cache.annotation.EnableCaching;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "transaction")
 @AllArgsConstructor
@@ -18,12 +22,15 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Column(name = "user_id")
     private String userId;
-    private Long fromAccountId;
-    private Long toAccountId;
-    private double amount;
-    private Type type;
-    private String date;
 
+    @Column(name = "from_account_id")
+    private Long fromAccountId;
+
+    @Column(name = "to_account_id")
+    private Long toAccountId;
+    private BigDecimal amount;
+    private String type;
+    private LocalDateTime date;
 }

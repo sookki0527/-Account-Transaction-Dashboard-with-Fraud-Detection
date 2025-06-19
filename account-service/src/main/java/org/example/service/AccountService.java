@@ -27,7 +27,7 @@ public class AccountService {
 
     public AccountDto getAccountById(Long accountId){
         Account account = accountRepository.findById(accountId)
-                .orElseThrow(() -> new RuntimeException("Account not found")); // ✅ 안정적 처리
+                .orElseThrow(() -> new RuntimeException("Account not found"));
         return new AccountDto(account.getAccountId(), account.getUserId(), account.getAccountType(), account.getAccountNumber(), account.getBalance(),
                 account.getCurrency());
     }

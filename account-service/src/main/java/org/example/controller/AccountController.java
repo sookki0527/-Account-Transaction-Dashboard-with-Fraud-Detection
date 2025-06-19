@@ -6,6 +6,7 @@ import org.example.dto.UpdateBalanceRequest;
 import org.example.entity.Account;
 import org.example.repository.AccountRepository;
 import org.example.service.AccountService;
+import org.example.service.KafkaProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,12 +18,14 @@ import java.util.List;
 public class AccountController {
 
 
+    private final KafkaProducer kafkaProducer;
     private AccountService accountService;
     private AccountRepository accountRepository;
 
-    public AccountController(AccountService accountService, AccountRepository accountRepository) {
+    public AccountController(AccountService accountService, AccountRepository accountRepository, KafkaProducer kafkaProducer) {
         this.accountService = accountService;
         this.accountRepository = accountRepository;
+        this.kafkaProducer = kafkaProducer;
     }
 
     @GetMapping("/{userId}")
@@ -45,6 +48,7 @@ public class AccountController {
 
         account.setBalance(request.getBalance());
         accountRepository.save(account);
+        kafkaProducer.sendTransferNotification(request);
         return ResponseEntity.ok().build();
 
     }

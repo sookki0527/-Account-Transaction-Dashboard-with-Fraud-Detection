@@ -2,6 +2,8 @@ package org.example.dto;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 @Data
 public class Account {
 
@@ -10,6 +12,6 @@ public class Account {
     private String userId;
     private String accountType;
     private String accountNumber;
-    private Double balance;
+    private BigDecimal balance;
     private String currency;
 }

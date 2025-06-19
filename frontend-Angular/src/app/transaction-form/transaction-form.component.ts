@@ -26,8 +26,8 @@ export class TransactionFormComponent {
       fromAccountId: this.fromAccountId,
       toAccountId: this.model.toAccountId!,
       amount: this.model.amount!,
-      date: new Date().toISOString(),
-      type: "TRANSFER_OUT"
+      date: new Date(),
+      type: "TRANSFER"
     };
 
     this.transactionService.sendTransaction(request).subscribe(

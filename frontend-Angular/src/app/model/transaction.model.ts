@@ -3,6 +3,6 @@ export interface Transaction {
   fromAccountId: number;
   toAccountId: number;
   amount: number;
-  date: string
+  date: Date
   type: string
 }

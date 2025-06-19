@@ -33,12 +33,12 @@ public class TransferService {
         Account to = restTemplate.getForObject(
                 ACCOUNT_SERVICE_BASE_URL + "/" + request.getToAccountId(), Account.class
         );
-        if(from.getBalance() < request.getAmount()) {
+        if(from.getBalance().compareTo( request.getAmount()) < 0) {
             throw new IllegalArgumentException("Insufficient Balance");
         }
 
-        from.setBalance(from.getBalance() - request.getAmount());
-        to.setBalance(to.getBalance() + request.getAmount());
+        from.setBalance(from.getBalance().subtract(request.getAmount()));  // Subtracting amount from the 'from' account
+        to.setBalance(to.getBalance().add(request.getAmount()));
 
         restTemplate.put(ACCOUNT_SERVICE_BASE_URL + "/" + request.getFromAccountId(), from);
         restTemplate.put(ACCOUNT_SERVICE_BASE_URL + "/" + request.getToAccountId(), to);
@@ -48,7 +48,8 @@ public class TransferService {
                 .fromAccountId(request.getFromAccountId())
                 .toAccountId(request.getToAccountId())
                 .amount(request.getAmount())
-                .date(request.getDate()) 
+                .date(request.getDate())
+                .type(request.getType())
                 .build();
         transferRepository.save(transaction);
         kafkaProducer.sendTransferNotification(request);

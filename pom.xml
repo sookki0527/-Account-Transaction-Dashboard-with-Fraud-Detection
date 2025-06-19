@@ -13,6 +13,7 @@
         <module>transaction-service</module>
         <module>notification-service</module>
         <module>user-service</module>
+        <module>Fraud-Detection-Service</module>
     </modules>
 
     <properties>

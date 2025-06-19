@@ -10,8 +10,8 @@ spring:
       enabled: false
   datasource:
     url: jdbc:mysql://mysql:3306/notification_db
-    username: root
-    password: passwordForMySQL8.1
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
 
   jpa:
     hibernate:
