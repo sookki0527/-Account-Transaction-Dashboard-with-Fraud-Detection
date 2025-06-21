@@ -2,7 +2,7 @@
 
 This project is a full-stack microservices-based banking dashboard that integrates Java-based backend services with a Python-based ML microservice to detect fraudulent transactions. It demonstrates a production-style architecture that uses real-time messaging (Kafka), REST APIs, and statistical anomaly detection using Isolation Forest.
 
-## 🧱 Architecture Overview
+##  Architecture Overview
 ![Diagram](https://github.com/user-attachments/assets/6257a635-71ac-49ee-b0a2-8e8e8332e198)
 
 
@@ -28,7 +28,7 @@ This project is a full-stack microservices-based banking dashboard that integrat
 
 ---
 
-## ✨ Features
+##  Features
 
 -  Account & Transaction APIs (Deposit, Withdraw, Transfer)
 -  Real-time fraud detection using Kafka event pipeline
@@ -41,34 +41,34 @@ This project is a full-stack microservices-based banking dashboard that integrat
 
 ##  Project Structure
 
-### 🔹 Account Service
+### Account Service
 - Handles deposits/withdrawals
 - Publishes events to Kafka `account-topic`
 - Tech: Spring Boot, MySQL, Kafka Producer
 
-### 🔹 Transaction Service
+###  Transaction Service
 - Handles inter-account transfers
 - Publishes to Kafka `transfer-topic`
 - Tech: Spring Boot, MySQL, Kafka Producer
 
-### 🔹 Fraud Detection Service (Java)
+###  Fraud Detection Service (Java)
 - Kafka consumer for transactions
 - Calls Flask ML API for prediction
 - Publishes results to Kafka
 - Tech: Spring Boot, RestTemplate, Kafka, Docker
 
-### 🔹 ML API (Python + Flask)
+###  ML API (Python + Flask)
 - Loads Isolation Forest model
 - Receives transaction data via POST `/predict`
 - Returns `{"result": "anomaly"}` or `{"result": "normal"}`
 
-### 🔹 Notification Service
+###  Notification Service
 - Listens to fraud detection output
 - Sends WebSocket alerts to Angular frontend
 
 ---
 
-## 🧠 ML Training & Feature Engineering
+##  ML Training & Feature Engineering
 
 The fraud detection model uses **Isolation Forest** with statistically engineered features:
 
