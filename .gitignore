@@ -43,5 +43,5 @@ venv*/
 .venv/
 
 # model artifacts
-*.pkl
+#*.pkl
 *.joblib
