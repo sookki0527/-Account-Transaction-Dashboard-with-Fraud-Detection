@@ -44,6 +44,7 @@ public class KafkaConsumer {
                 .build();
 
         try {
+            System.out.println("✅ sending dto: " + dto);
             ResponseEntity<Map> response = restTemplate.postForEntity(flaskUrl, dto, Map.class);
             Integer prediction = (Integer) response.getBody().get("prediction");
 

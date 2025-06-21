@@ -15,7 +15,7 @@ export class DashboardComponent implements OnInit{
   userName = 'Michelle';
   total$: Observable<number> | undefined;
   accounts: Account[] = [];
-  lastTransaction = '$120 to Mario';
+
   latestNotification: Notification | null = null;
   aiNotification: Notification | null = null;
   constructor(private accountService :AccountService, private router: Router, private notificationService: NotificationService,
