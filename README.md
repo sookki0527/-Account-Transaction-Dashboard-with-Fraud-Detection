@@ -30,16 +30,16 @@ This project is a full-stack microservices-based banking dashboard that integrat
 
 ## ✨ Features
 
-- ✅ Account & Transaction APIs (Deposit, Withdraw, Transfer)
-- ✅ Real-time fraud detection using Kafka event pipeline
-- ✅ Isolation Forest-based unsupervised anomaly prediction
-- ✅ Statistical feature engineering based on account behavior
-- ✅ Containerized deployment via Docker Compose
-- ✅ WebSocket-based real-time frontend alerts
+-  Account & Transaction APIs (Deposit, Withdraw, Transfer)
+-  Real-time fraud detection using Kafka event pipeline
+-  Isolation Forest-based unsupervised anomaly prediction
+-  Statistical feature engineering based on account behavior
+-  Containerized deployment via Docker Compose
+-  WebSocket-based real-time frontend alerts
 
 ---
 
-## 📂 Project Structure
+##  Project Structure
 
 ### 🔹 Account Service
 - Handles deposits/withdrawals
