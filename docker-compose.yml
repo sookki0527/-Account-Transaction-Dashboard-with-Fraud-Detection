@@ -34,6 +34,8 @@ services:
       - mysql
     networks:
       - backend
+    env_file:
+      - .env
 
   transaction-service:
     container_name: transaction-service
@@ -51,6 +53,8 @@ services:
       - mysql
     networks:
       - backend
+    env_file:
+      - .env
 
   notification-service:
     container_name: notification-service
@@ -67,6 +71,8 @@ services:
       - mysql
     networks:
       - backend
+    env_file:
+      - .env
 
   fraud-detection-service:
     container_name: fraud-detection-service
@@ -83,6 +89,8 @@ services:
       - mysql
     networks:
       - backend
+    env_file:
+      - .env
   zookeeper:
     image: confluentinc/cp-zookeeper:7.5.0
     ports:
@@ -92,11 +100,17 @@ services:
     networks:
       - backend
   flask:
-    build: .
+    container_name: flask
+    image: flask:latest
+    build:
+      context: ./FlaskPython
+      dockerfile: Dockerfile
     env_file:
       - .env
     ports:
       - "5000:5000"
+    networks:
+      - backend
   kafka:
     container_name: kafka
     image: confluentinc/cp-kafka:7.5.0

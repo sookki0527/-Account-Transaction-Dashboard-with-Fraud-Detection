@@ -4,3 +4,4 @@ sqlalchemy
 pymysql
 joblib
 scikit-learn
+python-dotenv

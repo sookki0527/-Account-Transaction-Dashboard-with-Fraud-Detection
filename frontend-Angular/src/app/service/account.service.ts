@@ -21,9 +21,13 @@ export class AccountService {
       this.totalBalanceSubject.next(total);
   }
 
-  updateAccountBalance(accountId: number, newBalance: number): Observable<void> {
-    return this.http.put<void>(`${this.url}/account/${accountId}`, { balance: newBalance });
+
+  increaseBalance(accountId: number, amount: number) {
+    return this.http.put(`${this.url}/account/${accountId}/deposit`, { balance: amount });
   }
 
+  decreaseBalance(accountId: number, amount: number) {
+    return this.http.put(`${this.url}/account/${accountId}/withdraw`, { balance: amount });
+  }
 
 }

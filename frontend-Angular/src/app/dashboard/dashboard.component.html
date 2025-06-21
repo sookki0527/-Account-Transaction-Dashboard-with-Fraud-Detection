@@ -27,9 +27,23 @@
       </div>
     </div>
   </div>
-  <div *ngIf="latestNotification" class="alert alert-info shadow-sm">
+  <div
+    *ngIf="latestNotification"
+    class="alert shadow-sm"
+    [ngClass]="{
+    'alert-success': latestNotification.type === 'account',
+    'alert-info': latestNotification.type === 'transfer',
+  }"
+  >
     <strong>{{ latestNotification.message }}</strong>
     <span class="ms-2 text-muted">{{ latestNotification.timestamp }}</span>
+  </div>
+  <div
+    *ngIf="aiNotification"
+    class="alert shadow-sm"
+  >
+    <strong>{{ aiNotification.message }}</strong>
+    <span class="ms-2 text-muted">{{ aiNotification.timestamp }}</span>
   </div>
 
   <div class="d-flex justify-content-center gap-3">

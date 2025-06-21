@@ -25,6 +25,7 @@ public class KafkaConsumer {
     @KafkaListener(topics = "transfer-topic", groupId = "notif-group")
     public void listen(TransferRequest event){
         NotificationResponse notif = new NotificationResponse(
+                "transfer",
                 "💸 $" + event.getAmount() + " transferred.",
                 "Just Now"
         );
@@ -36,11 +37,24 @@ public class KafkaConsumer {
     @KafkaListener(topics = "account-topic", groupId = "notif-group")
     public void listen(UpdateBalanceRequest event){
         NotificationResponse notif = new NotificationResponse(
+                "account",
                 "💸 $" + event.getBalance()+ " is " + event.getType() + " from account" + event.getAccountId(),
                 "Just Now"
         );
         System.out.println("✅ Consumed Kafka message: " + notif);
 
         messagingTemplate.convertAndSend("/topic/notifications", notif);
+    }
+
+    @KafkaListener(topics = "ai-topic", groupId = "notif-group")
+    public void listen(String message){
+        NotificationResponse notif = new NotificationResponse(
+                "ai",
+                message,
+                "Just Now"
+        );
+        System.out.println("✅ Consumed Kafka message: " + notif);
+
+        messagingTemplate.convertAndSend("/topic/notifications-ai", notif);
     }
 }

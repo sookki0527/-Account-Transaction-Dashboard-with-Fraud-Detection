@@ -38,8 +38,23 @@ public class AccountController {
         return accountService.getAccountById(accountId);
     }
 
-    @PutMapping("/account/{accountId}")
-    public ResponseEntity<Void> updateAccount(
+    @PutMapping("/account/{accountId}/deposit")
+    public ResponseEntity<Void> increaseAccount(
+            @PathVariable("accountId") Long accountId,
+            @RequestBody UpdateBalanceRequest request
+    ) {
+        Account account = accountRepository.findById(accountId)
+                .orElseThrow(() -> new RuntimeException("Account not found"));
+
+        account.setBalance(request.getBalance());
+        accountRepository.save(account);
+        kafkaProducer.sendTransferNotification(request);
+        return ResponseEntity.ok().build();
+
+    }
+
+    @PutMapping("/account/{accountId}/withdraw")
+    public ResponseEntity<Void> decreaseAccount(
             @PathVariable("accountId") Long accountId,
             @RequestBody UpdateBalanceRequest request
     ) {

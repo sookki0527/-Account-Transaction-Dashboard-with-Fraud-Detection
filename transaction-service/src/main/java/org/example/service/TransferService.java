@@ -40,8 +40,8 @@ public class TransferService {
         from.setBalance(from.getBalance().subtract(request.getAmount()));  // Subtracting amount from the 'from' account
         to.setBalance(to.getBalance().add(request.getAmount()));
 
-        restTemplate.put(ACCOUNT_SERVICE_BASE_URL + "/" + request.getFromAccountId(), from);
-        restTemplate.put(ACCOUNT_SERVICE_BASE_URL + "/" + request.getToAccountId(), to);
+        restTemplate.put(ACCOUNT_SERVICE_BASE_URL + "/" + request.getFromAccountId() +"/withdraw", from);
+        restTemplate.put(ACCOUNT_SERVICE_BASE_URL + "/" + request.getToAccountId() + "/deposit", to);
 
         Transaction transaction = Transaction.builder()
                 .userId(request.getUserId())

@@ -36,3 +36,12 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+# virtual env
+venv*/
+.env
+.venv/
+
+# model artifacts
+*.pkl
+*.joblib

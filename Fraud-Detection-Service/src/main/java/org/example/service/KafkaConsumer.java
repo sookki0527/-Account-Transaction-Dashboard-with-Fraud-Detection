@@ -18,10 +18,12 @@ import java.util.Map;
 public class KafkaConsumer {
 
     private final RestTemplate restTemplate;
-    private String flaskUrl = "http://localhost:5000/predict";
+    private final KafkaProducer kafkaProducer;
+    private String flaskUrl = "http://flask:5000/predict-advanced";
 
-    public KafkaConsumer(RestTemplate restTemplate){
+    public KafkaConsumer(RestTemplate restTemplate, KafkaProducer kafkaProducer){
         this.restTemplate = restTemplate;
+        this.kafkaProducer = kafkaProducer;
     }
 
     @KafkaListener(topics = "transfer-topic", groupId = "notif-group")
@@ -76,8 +78,10 @@ public class KafkaConsumer {
 
             if (prediction == -1) {
                 System.out.println("🚨 Anomalous transaction detected");
+                kafkaProducer.sendAINotification("🚨 Anomalous transaction detected");
             } else {
                 System.out.println("✅ Normal transaction");
+                kafkaProducer.sendAINotification("✅ Normal transaction");
             }
         } catch (Exception e) {
             System.out.println("Flask server call failure: " + e.getMessage());

@@ -30,18 +30,21 @@ export class AccountListComponent implements OnInit{
     })
     }
 
-  updateBalance(accountId: number, newBalance: number) {
 
-    const account = this.accounts.find(a => a.accountId === accountId);
-    if (account) {
-      account.balance = newBalance;
-    }
-
-    this.accountService.updateAccountBalance(accountId, newBalance).subscribe({
-      next: () => console.log('Balance updated'),
-      error: (err) => console.error('Failed to update balance', err)
+  handleIncrease(event: { id: number, newBalance: number }) {
+    this.accountService.increaseBalance(event.id, event.newBalance).subscribe({
+      next: () => console.log('Balance increased.'),
+      error: err => console.error('Error:', err)
     });
   }
+
+  handleDecrease(event: { id: number, newBalance: number }) {
+    this.accountService.decreaseBalance(event.id, event.newBalance).subscribe({
+      next: () => console.log('Balance decreased.'),
+      error: err => console.error('Error:', err)
+    });
+  }
+
   selectedAccountId: number | null = null;
 
   toggleForm(accountId: number) {

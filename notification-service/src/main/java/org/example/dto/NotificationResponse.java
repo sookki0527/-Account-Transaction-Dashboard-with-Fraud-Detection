@@ -5,7 +5,7 @@ import lombok.Data;
 @AllArgsConstructor
 @Data
 public class NotificationResponse {
-
+    private String type;
     private String message;
     private String time;
 }

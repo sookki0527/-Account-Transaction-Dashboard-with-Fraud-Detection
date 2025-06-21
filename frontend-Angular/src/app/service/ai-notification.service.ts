@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Client, IMessage, Stomp } from '@stomp/stompjs';
-import SockJS from 'sockjs-client';
+import {Client, IMessage} from "@stomp/stompjs";
 import {BehaviorSubject} from "rxjs";
 import {Notification} from "../model/notification.model";
+import SockJS from "sockjs-client";
 
 @Injectable({
   providedIn: 'root'
 })
-export class NotificationService {
+export class AiNotificationService {
   private stompClient: Client;
 
-  private notifications$ = new BehaviorSubject<Notification | null>(null);
+  private notificationsAI$ = new BehaviorSubject<Notification | null>(null);
 
   constructor() {
     this.stompClient = new Client({
@@ -21,9 +21,9 @@ export class NotificationService {
 
     this.stompClient.onConnect = frame => {
       console.log('Connected: ' + frame);
-      this.stompClient.subscribe('/topic/notifications', (message: IMessage) => {
+      this.stompClient.subscribe('/topic/notifications-ai', (message: IMessage) => {
         const notif: Notification = JSON.parse(message.body);
-        this.notifications$.next(notif);
+        this.notificationsAI$.next(notif);
         console.log('🔔 Notification:', notif);
       });
     };
@@ -32,14 +32,6 @@ export class NotificationService {
   }
 
   getNotificationStream() {
-    return this.notifications$.asObservable();
-  }
-
-
-  sendTransferMessage(event: { amount: number }) {
-    this.stompClient.publish({
-      destination: '/app/transfer',
-      body: JSON.stringify(event)
-    });
+    return this.notificationsAI$.asObservable();
   }
 }

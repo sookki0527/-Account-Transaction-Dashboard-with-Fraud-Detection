@@ -13,10 +13,14 @@
     </p>
 
     <div class="d-flex gap-2 mt-2">
-      <button class="btn btn-outline-success btn-sm">
-        +$100
+      <input type="number" [(ngModel)]="amountToAdd" placeholder="Enter amount" />
+      <button class="btn btn-outline-success btn-sm" (click) = "increaseBalance()">
+        Deposit
       </button>
-
+      <input type="number" [(ngModel)]="amountToSubtract" placeholder="Enter amount" />
+      <button class="btn btn-outline-warning btn-sm" (click) = "decreaseBalance()">
+        Withdraw
+      </button>
       <button class="btn btn-outline-primary btn-sm ms-auto" (click)="onTransferClick()">
         💸 Transfer
       </button>
